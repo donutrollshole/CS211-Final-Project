@@ -11,7 +11,7 @@ add_library(ge211
         ge211_resource.cxx
         ge211_session.cxx
         ge211_sprites.cxx
-        ge211_window.cxx)
+        ge211_window.cxx ../../../../src/controller.cxx)
 
 set_target_properties(ge211
         PROPERTIES

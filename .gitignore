@@ -1,1 +1,4 @@
 cmake-build-debug/
+.cs211/
+.DS_Store
+
