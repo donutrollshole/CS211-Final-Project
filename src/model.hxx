@@ -34,6 +34,8 @@ public:
 
     void set_game_started();
 
+    void reset_game();
+
 
 
 private:

@@ -9,9 +9,13 @@ Controller::Controller(ge211::Dims<int> window_dimensions)
 void Controller::on_key(ge211::Key key) {
 
     int bottom_key_column = model_.get_bottom_tile_column();
+    // quit on q
+    if (key == ge211::Key::code('q')) {
+        quit();
+    }
 
+    // if the game is not over (aka normal game functionality)
     if (!model_.get_game_over()) {
-
         if (key == ge211::Key::code('j')) {
             if (bottom_key_column == 0) {
                 model_.mark_bottom_clicked();
@@ -52,19 +56,23 @@ void Controller::on_key(ge211::Key key) {
             }
         }
     }
+
+    // if the game is over, allow the game to reset.
+    if (model_.get_game_over()) {
+        if (key == ge211::Key::code('r')) {
+            model_.reset_game();
+        }
+    }
 }
 
-ge211::Dims<int>
-Controller::initial_window_dimensions() const {
+ge211::Dims<int> Controller::initial_window_dimensions() const {
     return screen_dimensions_;
 }
 
 void Controller::on_frame(double dt) {
     model_.on_frame(dt);
 }
-void
-Controller::draw(ge211::Sprite_set& set)
+void Controller::draw(ge211::Sprite_set& set)
 {
     view_.draw(set);
 }
-

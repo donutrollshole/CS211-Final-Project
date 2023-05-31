@@ -116,3 +116,12 @@ int Model::get_game_over_key() const {
 void Model::set_game_started() {
     game_started_ = true;
 }
+
+void Model::reset_game() { // basically I just copied the constructor.
+    game_started_ = false;
+    game_over_ = false;
+    velocity_ = 1.0;
+    game_over_key_ = 0;
+    tiles_.clear();
+    tiles_.push_back(Tile(false, 0, 0.0));
+}

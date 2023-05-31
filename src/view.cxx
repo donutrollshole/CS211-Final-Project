@@ -53,12 +53,3 @@ ge211::Posn<int> View::board_to_screen(int x, double y) {
 
     return ge211::Posn<int>(x_new,y_new);
 }
-
-// ge211::Dims<int>
-// View::initial_window_dimensions() const
-// {
-//     // You can change this if you want:
-//     return {((4*tile_width)+ (3*track_margin)), ((4*tile_height)+
-//     (3*tile_spacing))};
-//
-// }

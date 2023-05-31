@@ -1,4 +1,3 @@
-cmake-build-debug/
 .cs211/
-.DS_Store
-
+.idea/
+cmake-build-debug/
