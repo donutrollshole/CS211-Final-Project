@@ -1,3 +1,4 @@
 .cs211/
 .idea/
 cmake-build-debug/
+.gitattributes
