@@ -38,6 +38,10 @@ public:
 
     double get_velocity() const;
 
+    int get_current_note_index() const;
+
+    void increment_current_note_index();
+
 
 
 private:
@@ -47,6 +51,7 @@ std::vector<Tile> tiles_;
 bool game_over_;
 bool game_started_;
 int game_over_key_;
+int current_note_index_;
 
 };
 

@@ -7,7 +7,8 @@ Model::Model()
       tiles_(),
       game_over_(false),
       game_started_(false),
-      game_over_key_(0)
+      game_over_key_(0),
+      current_note_index_(0)
 {
     // push stuff into tiles_()
     tiles_.push_back(Tile(false, rand() % 4, 3.0));
@@ -130,8 +131,17 @@ void Model::reset_game() { // basically I just copied the constructor.
     tiles_.push_back(Tile(false, rand() % 4, 2.0));
     tiles_.push_back(Tile(false, rand() % 4, 1.0));
     tiles_.push_back(Tile(false, rand() % 4, 0.0));
+    current_note_index_ = 0;
 }
 
 double Model::get_velocity() const {
     return velocity_;
+}
+
+int Model::get_current_note_index() const {
+    return current_note_index_;
+}
+
+void Model::increment_current_note_index() {
+    current_note_index_ += 1;
 }

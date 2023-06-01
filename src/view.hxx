@@ -12,10 +12,18 @@ public:
 
     ge211::Posn<int> board_to_screen(int x, double y);
 
+    void play_note();
+
+    void play_wrong_note();
+
     // ge211::Dims<int> initial_window_dimensions() const;
 
 private:
     Model const& model_;
+
+    void load_audio_();
+
+    std::vector<ge211::Sound_effect> notes_;
 
     ge211::Rectangle_sprite unclicked_tile;
     ge211::Rectangle_sprite clicked_tile;

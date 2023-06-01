@@ -20,9 +20,12 @@ void Controller::on_key(ge211::Key key) {
             if (bottom_key_column == 0) {
                 model_.mark_bottom_clicked();
                 model_.set_game_started();
+                view_.play_note();
+                model_.increment_current_note_index();
             } else {
                 model_.set_game_over();
                 model_.set_game_over_key(0);
+                view_.play_wrong_note();
             }
         }
 
@@ -30,9 +33,13 @@ void Controller::on_key(ge211::Key key) {
             if (bottom_key_column == 1) {
                 model_.mark_bottom_clicked();
                 model_.set_game_started();
+                view_.play_note();
+                model_.increment_current_note_index();
+
             } else {
                 model_.set_game_over();
                 model_.set_game_over_key(1);
+                view_.play_wrong_note();
             }
         }
 
@@ -40,9 +47,12 @@ void Controller::on_key(ge211::Key key) {
             if (bottom_key_column == 2) {
                 model_.mark_bottom_clicked();
                 model_.set_game_started();
+                view_.play_note();
+                model_.increment_current_note_index();
             } else {
                 model_.set_game_over();
                 model_.set_game_over_key(2);
+                view_.play_wrong_note();
             }
         }
 
@@ -50,9 +60,12 @@ void Controller::on_key(ge211::Key key) {
             if (bottom_key_column == 3) {
                 model_.mark_bottom_clicked();
                 model_.set_game_started();
+                view_.play_note();
+                model_.increment_current_note_index();
             } else {
                 model_.set_game_over();
                 model_.set_game_over_key(3);
+                view_.play_wrong_note();
             }
         }
     }
