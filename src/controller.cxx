@@ -2,7 +2,7 @@
 
 Controller::Controller(ge211::Dims<int> window_dimensions)
         : model_(),
-          view_(model_),
+          view_(model_, mixer()),
           screen_dimensions_(window_dimensions)
 { }
 

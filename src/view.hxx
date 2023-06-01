@@ -6,7 +6,7 @@
 class View
 {
 public:
-    explicit View(Model const& model);
+    explicit View(Model const& model, ge211::Mixer& mixer);
 
     void draw(ge211::Sprite_set& set);
 
@@ -27,4 +27,13 @@ private:
     ge211::Text_sprite velocity_sprite_;
     ge211::Text_sprite game_over_sprite_;
 
+    ge211::Mixer& mixer_;
+    ge211::Sound_effect A_;
+    ge211::Sound_effect B_;
+    ge211::Sound_effect C_;
+    ge211::Sound_effect D_;
+    ge211::Sound_effect E_;
+    ge211::Sound_effect F_;
+    ge211::Sound_effect G_;
+    ge211::Sound_effect wrong_note_;
 };

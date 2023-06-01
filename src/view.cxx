@@ -13,12 +13,13 @@ int track_margin = 5;
 int window_height = 4 * tile_height + 9;
 int tile_spacing = 3;
 
-View::View(Model const& model)
+View::View(Model const& model, ge211::Mixer& mixer)
         : model_(model),
           unclicked_tile({tile_width,tile_height}, black),
           clicked_tile({tile_width,tile_height}, gray),
           background_track({tile_width,window_height}, white),
-          red_tile({tile_width,tile_height}, red)
+          red_tile({tile_width,tile_height}, red),
+          mixer_(mixer)
 {
     ge211::Text_sprite::Builder word_builder(sans60_);
     word_builder.color(purple);
