@@ -22,4 +22,9 @@ private:
     ge211::Rectangle_sprite background_track;
     ge211::Rectangle_sprite red_tile;
 
+    ge211::Font sans28_{"sans.ttf", 28};
+    ge211::Font sans60_{"sans.ttf", 60};
+    ge211::Text_sprite velocity_sprite_;
+    ge211::Text_sprite game_over_sprite_;
+
 };

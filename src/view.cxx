@@ -4,6 +4,8 @@ static ge211::Color const black {0, 0, 0};
 static ge211::Color const gray {172, 172, 172};
 static ge211::Color const white {255, 255, 255};
 static ge211::Color const red {255, 0, 0};
+static ge211::Color const blue {0, 0, 255};
+static ge211::Color const purple {129, 88, 209};
 
 int tile_height = 175;
 int tile_width = 100;
@@ -17,7 +19,26 @@ View::View(Model const& model)
           clicked_tile({tile_width,tile_height}, gray),
           background_track({tile_width,window_height}, white),
           red_tile({tile_width,tile_height}, red)
-{ }
+{
+    ge211::Text_sprite::Builder word_builder(sans60_);
+    word_builder.color(purple);
+    word_builder.message("Game Over");
+    game_over_sprite_.reconfigure(word_builder);
+
+    // This code can be used to create the winner and loser text sprites
+    // Still must define color blue & initiate sprites in .hxx
+    // word_builder.font(sans36_);
+    // word_builder.color(blue);
+    // word_builder.message("Winner");
+    // winner_sprite_.reconfigure(word_builder);
+
+    // word_builder.font(sans36_);
+    // word_builder.color(red);
+    // word_builder.message("Loser");
+    // loser_sprite_.reconfigure(word_builder);
+
+
+}
 
 void
 View::draw(ge211::Sprite_set& set)
@@ -38,10 +59,23 @@ View::draw(ge211::Sprite_set& set)
 
     }
 
+    // this adds velocity to the screen
+    ge211::Text_sprite::Builder count_builder(sans28_);
+    count_builder << "Speed:  " << model_.get_velocity();
+    count_builder.color(purple);
+    velocity_sprite_.reconfigure(count_builder);
+    //int velocity_sprite_x = 210 - velocity_sprite_.dimensions().width/2;
+    set.add_sprite(velocity_sprite_, {112, 0}, 3);
+
     if (model_.get_game_over()) {
         set.add_sprite(red_tile, board_to_screen(model_.get_game_over_key(),
                                                  model_.get_bottom_tile_y()),
                        1);
+        // this adds the game over text to the screen
+        int game_over_x = 210 - game_over_sprite_.dimensions().width/2;
+        int game_over_y = 100 - game_over_sprite_.dimensions().height/2;
+        ge211::Posn<int> posn = {game_over_x, game_over_y};
+        set.add_sprite(game_over_sprite_, posn, 2);
     }
 
 }

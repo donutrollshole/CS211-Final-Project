@@ -10,7 +10,10 @@ Model::Model()
       game_over_key_(0)
 {
     // push stuff into tiles_()
-    tiles_.push_back(Tile(false, 0, 0.0));
+    tiles_.push_back(Tile(false, rand() % 4, 3.0));
+    tiles_.push_back(Tile(false, rand() % 4, 2.0));
+    tiles_.push_back(Tile(false, rand() % 4, 1.0));
+    tiles_.push_back(Tile(false, rand() % 4, 0.0));
 
 }
 
@@ -123,5 +126,12 @@ void Model::reset_game() { // basically I just copied the constructor.
     velocity_ = 1.0;
     game_over_key_ = 0;
     tiles_.clear();
-    tiles_.push_back(Tile(false, 0, 0.0));
+    tiles_.push_back(Tile(false, rand() % 4, 3.0));
+    tiles_.push_back(Tile(false, rand() % 4, 2.0));
+    tiles_.push_back(Tile(false, rand() % 4, 1.0));
+    tiles_.push_back(Tile(false, rand() % 4, 0.0));
+}
+
+double Model::get_velocity() const {
+    return velocity_;
 }

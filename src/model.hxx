@@ -36,6 +36,8 @@ public:
 
     void reset_game();
 
+    double get_velocity() const;
+
 
 
 private:
