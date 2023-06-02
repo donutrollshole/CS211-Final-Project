@@ -72,7 +72,7 @@ TEST_CASE("check that generate row is adding tiles") {
     // by default.
 
     // ensure that generate row adds a new Tile into the vector each time.
-    for (int i = 5; i<10; i++) {
+    for (long unsigned int i = 5; i<10; i++) {
         test_model.generate_row();
         tiles = test_model.all_tiles();
         CHECK(tiles.size() == i);

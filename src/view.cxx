@@ -41,7 +41,7 @@ View::View(Model const& model, ge211::Mixer& mixer)
     // load audio
     load_audio_();
 
-    // add in your song in backwards order here.
+    // add in Mary Had a Little Lamb
     notes_.push_back(E_);
     notes_.push_back(D_);
     notes_.push_back(C_);
@@ -69,7 +69,6 @@ View::View(Model const& model, ge211::Mixer& mixer)
     notes_.push_back(C_);
 
     //This code can be used to create the winner and loser text sprites
-    //Still must define color blue & initiate sprites in .hxx
     word_builder.font(sans60_);
     word_builder.color(purple);
     word_builder.message("Winner");
@@ -81,28 +80,31 @@ View::View(Model const& model, ge211::Mixer& mixer)
     loser_sprite_.reconfigure(word_builder);
 }
 
-void
-View::draw(ge211::Sprite_set& set)
+void View::draw(ge211::Sprite_set& set)
 {
     for (int i = 0; i < 4; i++) { // 4 columns in the background.
-        set.add_sprite(background_track, board_to_screen(i, 0.0), 0);
+        set.add_sprite(background_track,
+                       board_to_screen(i, 0.0), 0);
     }
 
     if (model_.get_two_player()) {
-        for (int i = 4; i < 8; i++) { // 4 columns in the background.
-            set.add_sprite(background_track, board_to_screen(i, 0.0).right_by
+        for (int i = 4; i < 8; i++) { // right 4 columns in the background.
+            set.add_sprite(background_track,
+                           board_to_screen(i, 0.0).right_by
             (multiplayer_margin),0);
         }
     }
 
     for (auto t: model_.all_tiles()) {
         if (t.isClicked()) {
-            set.add_sprite(clicked_tile, board_to_screen(t.get_x_pos(),t
+            set.add_sprite(clicked_tile,
+                           board_to_screen(t.get_x_pos(),t
             .get_y_pos()), 1);
         }
         if (!t.isClicked()) {
-            set.add_sprite(unclicked_tile, board_to_screen(t.get_x_pos(),t
-            .get_y_pos()), 1);
+            set.add_sprite(unclicked_tile,
+                           board_to_screen(t.get_x_pos(),t
+                           .get_y_pos()), 1);
         }
 
     }
@@ -111,11 +113,13 @@ View::draw(ge211::Sprite_set& set)
         for (auto t: model_.all_tiles2()) {
 
             if (t.isClicked()) {
-                set.add_sprite(clicked_tile, board_to_screen(t.get_x_pos(),t
+                set.add_sprite(clicked_tile,
+                               board_to_screen(t.get_x_pos(),t
                 .get_y_pos()).right_by(multiplayer_margin), 1);
             }
             if (!t.isClicked()) {
-                set.add_sprite(unclicked_tile, board_to_screen(t.get_x_pos(),t
+                set.add_sprite(unclicked_tile,
+                               board_to_screen(t.get_x_pos(),t
                 .get_y_pos()).right_by(multiplayer_margin),1);
             }
         }
@@ -140,7 +144,8 @@ View::draw(ge211::Sprite_set& set)
     if (!model_.get_two_player()) {
         if (model_.get_game_over()) {
 
-            set.add_sprite(red_tile, board_to_screen(model_.get_game_over_key(),model_
+            set.add_sprite(red_tile, board_to_screen(
+                    model_.get_game_over_key(),model_
                     .get_bottom_tile_y()),1 );
 
             // this adds the game over text to the screen
@@ -154,14 +159,17 @@ View::draw(ge211::Sprite_set& set)
             if (model_.get_game_over()) {
 
                 if (model_.get_loser() == 0) {
-                    set.add_sprite(red_tile, board_to_screen(model_.get_game_over_key(),
-                                                             model_.get_bottom_tile_y()),
+                    set.add_sprite(red_tile,
+                                   board_to_screen(
+                                           model_.get_game_over_key(),
+                                           model_.get_bottom_tile_y()),
                                    1);
                 }
                 else if (model_.get_loser() == 1) {
-                    set.add_sprite(red_tile, board_to_screen(model_
-                    .get_game_over_key(),model_.get_bottom_tile_y2()).right_by
-                    (multiplayer_margin),1);
+                    set.add_sprite(red_tile, board_to_screen(
+                            model_.get_game_over_key(),
+                            model_.get_bottom_tile_y2()).
+                            right_by(multiplayer_margin),1);
                 }
 
                 // this adds the game over text to the screen
@@ -235,8 +243,8 @@ void View::load_audio_() {
 }
 
 void View::play_note() {
-    mixer_.try_play_effect(notes_[model_.get_current_note_index() % (notes_
-    .size())]);
+    mixer_.try_play_effect(notes_[model_.get_current_note_index() %
+    (notes_.size())]);
 }
 
 void View::play_wrong_note() {

@@ -8,15 +8,18 @@ int main(int argc, char *argv[])
 {
     switch(argc) {
     case 1:
-        Controller(screen_dimensions, false).run();
+        Controller(screen_dimensions, false).
+        run();
 
     case 2:
         std::string input = (argv[1]);
         if ("-c" == input) {
-            Controller(screen_dimensions2, true).run();
+            Controller(screen_dimensions2, true).
+            run();
         }
         else {
-            Controller(screen_dimensions, false).run();
+            Controller(screen_dimensions, false).
+            run();
         }
 
     }
