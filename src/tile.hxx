@@ -11,6 +11,7 @@ class Tile {
     double get_y_pos() const;
 
     void change_y(double velocity, double dt);
+    void change_x(int);
 
     bool isClicked();
 

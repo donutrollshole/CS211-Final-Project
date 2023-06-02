@@ -32,3 +32,7 @@ void Tile::change_y(double velocity, double dt)
 void Tile::mark_clicked() {
     clicked_ = true;
 }
+
+void Tile::change_x(int add) {
+    x_pos_ = x_pos_ + add;
+}

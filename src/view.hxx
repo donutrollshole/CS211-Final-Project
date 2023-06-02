@@ -34,6 +34,8 @@ private:
     ge211::Font sans60_{"sans.ttf", 60};
     ge211::Text_sprite velocity_sprite_;
     ge211::Text_sprite game_over_sprite_;
+    ge211::Text_sprite winner_sprite_;
+    ge211::Text_sprite loser_sprite_;
 
     ge211::Mixer& mixer_;
     ge211::Sound_effect A_;

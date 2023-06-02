@@ -13,6 +13,7 @@ int tile_width = 100;
 int track_margin = 5;
 int window_height = 4 * tile_height + 9;
 int tile_spacing = 3;
+int multiplayer_margin = 50;
 
 static std::string const A_sound_filename {"A.mp3"};
 static std::string const B_sound_filename {"B.mp3"};
@@ -67,17 +68,17 @@ View::View(Model const& model, ge211::Mixer& mixer)
     notes_.push_back(D_);
     notes_.push_back(C_);
 
-    // This code can be used to create the winner and loser text sprites
-    // Still must define color blue & initiate sprites in .hxx
-    // word_builder.font(sans36_);
-    // word_builder.color(blue);
-    // word_builder.message("Winner");
-    // winner_sprite_.reconfigure(word_builder);
+    //This code can be used to create the winner and loser text sprites
+    //Still must define color blue & initiate sprites in .hxx
+    word_builder.font(sans60_);
+    word_builder.color(purple);
+    word_builder.message("Winner");
+    winner_sprite_.reconfigure(word_builder);
 
-    // word_builder.font(sans36_);
-    // word_builder.color(red);
-    // word_builder.message("Loser");
-    // loser_sprite_.reconfigure(word_builder);
+    word_builder.font(sans60_);
+    word_builder.color(purple);
+    word_builder.message("Loser");
+    loser_sprite_.reconfigure(word_builder);
 }
 
 void
@@ -85,6 +86,13 @@ View::draw(ge211::Sprite_set& set)
 {
     for (int i = 0; i < 4; i++) { // 4 columns in the background.
         set.add_sprite(background_track, board_to_screen(i, 0.0), 0);
+    }
+
+    if (model_.get_two_player()) {
+        for (int i = 4; i < 8; i++) { // 4 columns in the background.
+            set.add_sprite(background_track, board_to_screen(i, 0.0).right_by
+            (multiplayer_margin),0);
+        }
     }
 
     for (auto t: model_.all_tiles()) {
@@ -99,24 +107,111 @@ View::draw(ge211::Sprite_set& set)
 
     }
 
+    if (model_.get_two_player()) {
+        for (auto t: model_.all_tiles2()) {
+
+            if (t.isClicked()) {
+                set.add_sprite(clicked_tile, board_to_screen(t.get_x_pos(),t
+                .get_y_pos()).right_by(multiplayer_margin), 1);
+            }
+            if (!t.isClicked()) {
+                set.add_sprite(unclicked_tile, board_to_screen(t.get_x_pos(),t
+                .get_y_pos()).right_by(multiplayer_margin),1);
+            }
+        }
+    }
+
+
+
     // this adds velocity to the screen
     ge211::Text_sprite::Builder count_builder(sans28_);
     count_builder << "Speed:  " << model_.get_velocity();
     count_builder.color(purple);
     velocity_sprite_.reconfigure(count_builder);
-    int velocity_sprite_x = 210 - velocity_sprite_.dimensions().width/2;
-    set.add_sprite(velocity_sprite_, {112, 0}, 3);
 
-    if (model_.get_game_over()) {
-        set.add_sprite(red_tile, board_to_screen(model_.get_game_over_key(),
-                                                 model_.get_bottom_tile_y()),
-                       1);
-        // this adds the game over text to the screen
-        int game_over_x = 210 - game_over_sprite_.dimensions().width/2;
-        int game_over_y = 100 - game_over_sprite_.dimensions().height/2;
-        ge211::Posn<int> posn = {game_over_x, game_over_y};
-        set.add_sprite(game_over_sprite_, posn, 2);
+    if (!model_.get_two_player()) {
+        // int velocity_sprite_x = 210 - velocity_sprite_.dimensions().width/2;
+        set.add_sprite(velocity_sprite_, {112, 0}, 3);
     }
+    else if (model_.get_two_player()) {
+        set.add_sprite(velocity_sprite_, {350, 0}, 3);
+    }
+
+    if (!model_.get_two_player()) {
+        if (model_.get_game_over()) {
+
+            set.add_sprite(red_tile, board_to_screen(model_.get_game_over_key(),model_
+                    .get_bottom_tile_y()),1 );
+
+            // this adds the game over text to the screen
+            int game_over_x = 210 - game_over_sprite_.dimensions().width / 2;
+            int game_over_y = 100 - game_over_sprite_.dimensions().height / 2;
+            ge211::Posn<int> posn = {game_over_x, game_over_y};
+            set.add_sprite(game_over_sprite_, posn, 2);
+        }
+    }
+        else if (model_.get_two_player()) {
+            if (model_.get_game_over()) {
+
+                if (model_.get_loser() == 0) {
+                    set.add_sprite(red_tile, board_to_screen(model_.get_game_over_key(),
+                                                             model_.get_bottom_tile_y()),
+                                   1);
+                }
+                else if (model_.get_loser() == 1) {
+                    set.add_sprite(red_tile, board_to_screen(model_
+                    .get_game_over_key(),model_.get_bottom_tile_y2()).right_by
+                    (multiplayer_margin),1);
+                }
+
+                // this adds the game over text to the screen
+                if (model_.get_loser() == 0) {
+                    int loser_x = 210 - loser_sprite_.dimensions().width
+                            / 2;
+                    int loser_y = 100 - loser_sprite_.dimensions().height
+                            / 2;
+                    ge211::Posn<int> posn = {loser_x, loser_y};
+                    set.add_sprite(loser_sprite_, posn, 2);
+
+                    int winner_x = 675 - winner_sprite_.dimensions().width
+                                        / 2;
+                    int winner_y = 100 - winner_sprite_.dimensions().height
+                                        / 2;
+                    ge211::Posn<int> posn2 = {winner_x, winner_y};
+                    set.add_sprite(winner_sprite_, posn2, 2);
+                }
+                else if (model_.get_loser() == 1) {
+                    int loser_x = 675 - loser_sprite_.dimensions().width
+                                        / 2;
+                    int loser_y = 100 - loser_sprite_.dimensions().height
+                                        / 2;
+                    ge211::Posn<int> posn = {loser_x, loser_y};
+                    set.add_sprite(loser_sprite_, posn, 2);
+
+                    int winner_x = 210 - winner_sprite_.dimensions().width
+                                        / 2;
+                    int winner_y = 100 - winner_sprite_.dimensions().height
+                                        / 2;
+                    ge211::Posn<int> posn2 = {winner_x, winner_y};
+                    set.add_sprite(winner_sprite_, posn2, 2);
+                }
+                else if (model_.get_loser() == 2) {
+                    int loser_x = 675 - loser_sprite_.dimensions().width
+                                        / 2;
+                    int loser_y = 100 - loser_sprite_.dimensions().height
+                                        / 2;
+                    ge211::Posn<int> posn = {loser_x, loser_y};
+                    set.add_sprite(loser_sprite_, posn, 2);
+
+                    int loser2_x = 210 - loser_sprite_.dimensions().width
+                                        / 2;
+                    int loser2_y = 100 - loser_sprite_.dimensions().height
+                                        / 2;
+                    ge211::Posn<int> posn2 = {loser2_x, loser2_y};
+                    set.add_sprite(loser_sprite_, posn2, 2);
+                }
+            }
+        }
 
 }
 

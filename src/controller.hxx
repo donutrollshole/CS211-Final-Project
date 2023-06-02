@@ -8,7 +8,7 @@
 class Controller : public ge211::Abstract_game
 {
 public:
-    Controller(ge211::Dims<int> window_dimensions);
+    Controller(ge211::Dims<int> window_dimensions, bool twoplayer);
 
     ge211::Dims<int> initial_window_dimensions() const override;
 
