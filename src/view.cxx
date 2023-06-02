@@ -104,7 +104,7 @@ View::draw(ge211::Sprite_set& set)
     count_builder << "Speed:  " << model_.get_velocity();
     count_builder.color(purple);
     velocity_sprite_.reconfigure(count_builder);
-    //int velocity_sprite_x = 210 - velocity_sprite_.dimensions().width/2;
+    int velocity_sprite_x = 210 - velocity_sprite_.dimensions().width/2;
     set.add_sprite(velocity_sprite_, {112, 0}, 3);
 
     if (model_.get_game_over()) {
